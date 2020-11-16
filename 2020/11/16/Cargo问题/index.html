@@ -5,20 +5,20 @@
   
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <link rel="dns-prefetch" href="http://example.com">
+  <link rel="dns-prefetch" href="https://fallstreet.github.io">
   <title>The road ahead is long and has no ending</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、社区方法 https:&#x2F;&#x2F;cargo.budshome.com&#x2F;reference&#x2F;source-replacement.html 2、知乎方法 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;74875840 在 cargo.toml 文件中添加了依赖之后，运行 cargo build 命令时，如果卡在 blocking waiting for file lock on packa">
+  <meta name="description" content="Cargo 问题1、社区方法 https:&#x2F;&#x2F;cargo.budshome.com&#x2F;reference&#x2F;source-replacement.html 2、知乎方法 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;74875840 在 cargo.toml 文件中添加了依赖之后，运行 cargo build 命令时，如果卡在 blocking waiting for file lock">
 <meta property="og:type" content="article">
 <meta property="og:title" content="The road ahead is long and has no ending">
-<meta property="og:url" content="http://example.com/2020/11/16/Cargo%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:url" content="https://fallstreet.github.io/2020/11/16/Cargo%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="The road ahead is long and has no ending">
-<meta property="og:description" content="1、社区方法 https:&#x2F;&#x2F;cargo.budshome.com&#x2F;reference&#x2F;source-replacement.html 2、知乎方法 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;74875840 在 cargo.toml 文件中添加了依赖之后，运行 cargo build 命令时，如果卡在 blocking waiting for file lock on packa">
+<meta property="og:description" content="Cargo 问题1、社区方法 https:&#x2F;&#x2F;cargo.budshome.com&#x2F;reference&#x2F;source-replacement.html 2、知乎方法 https:&#x2F;&#x2F;zhuanlan.zhihu.com&#x2F;p&#x2F;74875840 在 cargo.toml 文件中添加了依赖之后，运行 cargo build 命令时，如果卡在 blocking waiting for file lock">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://static.bookstack.cn/projects/RustPrimer/images/project-structure.png">
-<meta property="og:image" content="http://example.com/2020/11/16/Cargo%E9%97%AE%E9%A2%98/image-20201109193013919.png">
+<meta property="og:image" content="https://fallstreet.github.io/2020/11/16/Cargo%E9%97%AE%E9%A2%98/image-20201109193013919.png">
 <meta property="article:published_time" content="2020-11-16T05:38:42.923Z">
-<meta property="article:modified_time" content="2020-11-09T12:17:29.876Z">
+<meta property="article:modified_time" content="2020-11-16T10:58:47.759Z">
 <meta property="article:author" content="fallstreet">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://static.bookstack.cn/projects/RustPrimer/images/project-structure.png">
@@ -162,11 +162,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1、社区方法</p>
+        <h3 id="Cargo-问题"><a href="#Cargo-问题" class="headerlink" title="Cargo 问题"></a>Cargo 问题</h3><p>1、社区方法</p>
 <p><a target="_blank" rel="noopener" href="https://cargo.budshome.com/reference/source-replacement.html">https://cargo.budshome.com/reference/source-replacement.html</a></p>
 <p>2、知乎方法</p>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/74875840">https://zhuanlan.zhihu.com/p/74875840</a></p>
 <p>在 <code>cargo.toml</code> 文件中添加了依赖之后，运行 <code>cargo build</code> 命令时，如果卡在 <code>blocking waiting for file lock on package cache lock</code> 这里，在你尝试了网上其他解决方法无效后，有可能是网络的问题，需要给 cargo 换源或者借助代理来解决 。</p>
+<a id="more"></a>
+
 <p>进入用户目录下的 .cargo 文件夹（<code>~/.cargo</code>），新建一个名为 <code>config</code> 的文件，在 windows 系统中需注意后缀名为空。</p>
 <p>在config文件中写入以下内容</p>
 <figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[source.crates-io]</span><br><span class="line">registry = <span class="string">&quot;https://github.com/rust-lang/crates.io-index&quot;</span></span><br><span class="line">replace-with = <span class="symbol">&#x27;ustc</span>&#x27;</span><br><span class="line">[source.ustc]</span><br><span class="line">registry = <span class="string">&quot;git://mirrors.ustc.edu.cn/crates.io-index&quot;</span></span><br><span class="line"># 如果所处的环境中不允许使用 git 协议，可以把上面的地址改为</span><br><span class="line"># registry = <span class="string">&quot;https://mirrors.ustc.edu.cn/crates.io-index&quot;</span></span><br></pre></td></tr></table></figure>
@@ -278,7 +280,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://example.com/2020/11/16/Cargo%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://fallstreet.github.io/2020/11/16/Cargo%E9%97%AE%E9%A2%98/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -291,6 +293,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2020/11/16/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
   
   
     <a href="/2020/11/15/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
@@ -366,19 +377,20 @@ gitalk.render('gitalk-container')
       	</div>
     </div>
   </div>
+
   
 	<!-- 不蒜子统计 -->
-	<span id="busuanzi_container_site_pv">
-			本站总访问量<span id="busuanzi_value_site_pv"></span>次
-	</span>
+	<span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
 	<span class="post-meta-divider">|</span>
-	<span id="busuanzi_container_site_uv" style='display:none'>
-			本站访客数<span id="busuanzi_value_site_uv"></span>人
-	</span>
-	<script async src="/busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
+	<span id="busuanzi_container_site_uv">本站访客数<span id="busuanzi_value_site_uv"></span>人</span>
+	<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
 </footer>
 <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  
+<!--页面点击小红心-->
+<script type="text/javascript" src="/love.js"></script>
+
     </div>
     <script>
 	var yiliaConfig = {

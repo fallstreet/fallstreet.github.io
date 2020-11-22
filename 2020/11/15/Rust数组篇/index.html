@@ -6,17 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://fallstreet.github.io">
-  <title>some | The road ahead is long and has no ending</title>
+  <title>Rust 数组篇 | The road ahead is long and has no ending</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="nice to meet you">
+  <meta name="description" content="RUST 数组篇  前言​        数组是算法最常用的两个基本数据结构,在Rust中有[T]和Vec&lt;T&gt;，而Vec&lt;T&gt;实现了Deref trait，让我们很多时候能方便的使用。提到数组，最熟耳能详的自然是各种排序算法，对于不同的元素进行比较最后升序或降序排列。这里，需要先提及std::cmp里几个trait，分别为Eq、Ord、PartialEq、PartialO">
 <meta property="og:type" content="article">
-<meta property="og:title" content="some">
-<meta property="og:url" content="https://fallstreet.github.io/2020/11/16/some/index.html">
+<meta property="og:title" content="Rust 数组篇">
+<meta property="og:url" content="https://fallstreet.github.io/2020/11/15/Rust%E6%95%B0%E7%BB%84%E7%AF%87/index.html">
 <meta property="og:site_name" content="The road ahead is long and has no ending">
-<meta property="og:description" content="nice to meet you">
+<meta property="og:description" content="RUST 数组篇  前言​        数组是算法最常用的两个基本数据结构,在Rust中有[T]和Vec&lt;T&gt;，而Vec&lt;T&gt;实现了Deref trait，让我们很多时候能方便的使用。提到数组，最熟耳能详的自然是各种排序算法，对于不同的元素进行比较最后升序或降序排列。这里，需要先提及std::cmp里几个trait，分别为Eq、Ord、PartialEq、PartialO">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-11-16T14:31:54.000Z">
-<meta property="article:modified_time" content="2020-11-16T14:31:54.632Z">
+<meta property="article:published_time" content="2020-11-15T07:17:16.533Z">
+<meta property="article:modified_time" content="2020-11-22T13:58:26.112Z">
 <meta property="article:author" content="fallstreet">
 <meta name="twitter:card" content="summary">
   
@@ -154,20 +154,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-some" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Rust数组篇" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      some
+      Rust 数组篇
     </h1>
   
 
         
-        <a href="/2020/11/16/some/" class="archive-article-date">
-  	<time datetime="2020-11-16T14:31:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-16</time>
+        <a href="/2020/11/15/Rust%E6%95%B0%E7%BB%84%E7%AF%87/" class="archive-article-date">
+  	<time datetime="2020-11-15T07:17:16.533Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-11-15</time>
 </a>
 
 	<!-- 不蒜子统计 -->
@@ -183,7 +183,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">1.5k字</span>
       </span>
     </span>
 
@@ -192,7 +192,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">6分</span>
       </span>
     </span>
 </div>
@@ -203,7 +203,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <div align='center' ><font size='70'>RUST 数组篇</font></div>
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        数组是算法最常用的两个基本数据结构,在Rust中有<code>[T]</code>和<code>Vec&lt;T&gt;</code>，而<code>Vec&lt;T&gt;</code>实现了<code>Deref trait</code>，让我们很多时候能方便的使用。提到数组，最熟耳能详的自然是各种排序算法，对于不同的元素进行比较最后升序或降序排列。这里，需要先提及<code>std::cmp</code>里几个trait，分别为<code>Eq</code>、<code>Ord</code>、<code>PartialEq</code>、<code>PartialOrd</code>。</p>
+<a id="more"></a>
+
+<p>​        <code>Eq</code>和<code>PartialEq</code>是特征，可让您分别定义值之间的全部和部分相等。实现它们会重载==和！=运算符。<br>​        <code>Ord</code>和<code>PartialOrd</code>是允许您分别定义值之间的总顺序和部分顺序的特征。实现它们会重载&lt;，&lt;=，&gt;和&gt; =运算符。</p>
+<h4 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h4><p>​        比较常见的排序算法有：冒泡排序、快速排序、插入排序、希尔排序、选择排序、堆排序、归并排序等等，这里将这几种排序算法用Rust实现。如果对排序算法不是太了解，推荐网络上一篇<a target="_blank" rel="noopener" href="https://www.cnblogs.com/onepixel/articles/7674659.html">排序算法博文</a>。</p>
+<h5 id="冒泡法"><a href="#冒泡法" class="headerlink" title="冒泡法"></a>冒泡法</h5><p>​        （1）比较相邻元素，如果第一个比第二个大，就交换两个；</p>
+<p>​        （2）继续对相邻元素做（1）操作，直到到元素末尾，此时末尾的数已经最大；</p>
+<p>​        （3）一次操作过来已经将最后一个元素变为最大，所以需要对除最后一个元素前面的元素继续上面操作，直到第二个元素最大。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">bubble_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>&gt;(array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">let</span> len = array.len();</span><br><span class="line">    <span class="keyword">if</span> len &lt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..len-<span class="number">1</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> flag = <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span>..len-<span class="number">1</span>-i &#123;</span><br><span class="line">            <span class="keyword">if</span> array[j] &gt; array[j+<span class="number">1</span>] &#123;</span><br><span class="line">                array.swap(j,j+<span class="number">1</span>);</span><br><span class="line">                flag = <span class="literal">true</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> flag == <span class="literal">false</span> &#123;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//flag是作为一个判断，即本轮有没有比较交换，若一个都没有交换操作，很容易知道后一个一定比前一个大，本轮的元素也都是这样，即已经排好序！</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h5><p>​        （1）定义一个下标index值，作为每一次遍历元素记录最小的值的下标；</p>
+<p>​        （2）将下标处的元素和每一次遍历开头元素交换，这样每次遍历的最前面就是最小值；</p>
+<p>​                注意：第一次遍历从0号位置开始的话，第二次遍历就是从1号位置，因为0已结最小了，就是这样遍历下去。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">select_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>&gt;(array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..array.len() &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> index = i-<span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> i..array.len() &#123;</span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[index] &#123;</span><br><span class="line">                index = j;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        array.swap(i-<span class="number">1</span>, index);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h5><p>​        （1）默认第一个已经有序，不断从后面找元素与前面已有序的最后一个开始比较；</p>
+<p>​        （2）将后面元素放入前面已有序的某个正确位置，所以前面有序的长度一直增大；</p>
+<p>​        （3）所以整体就是分为有序和无序部分，将无序首个元素和有序最后一个元素开始进行比较并放入有序合适位置，直到无序长度为0。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">insert_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>&gt;(array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..array.len() &#123;</span><br><span class="line">        <span class="keyword">let</span> <span class="keyword">mut</span> j = i;</span><br><span class="line">        <span class="keyword">let</span> current = array[j];</span><br><span class="line">        <span class="keyword">while</span> j &gt; <span class="number">0</span> &amp;&amp; current &lt; array[j-<span class="number">1</span>] &#123;</span><br><span class="line">            array[j] = array[j-<span class="number">1</span>];</span><br><span class="line">            j-=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        array[j] = current;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="归并排序"><a href="#归并排序" class="headerlink" title="归并排序"></a>归并排序</h5><p>​        （1）把长度为n的输入序列分成两个长度为n/2的子序列；</p>
+<p>​        （2）对这两个子序列分别采用归并排序；</p>
+<p>​        （3）将两个子序列进行比较并在其位置放入排序完后的元素，最终合并为完整的排序结果。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">merge_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>+<span class="built_in">Default</span>&gt;(left: <span class="built_in">usize</span>, right: <span class="built_in">usize</span>, array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">if</span> left &gt;= right &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> mid = (left + right) &gt;&gt; <span class="number">1</span>;</span><br><span class="line">    merge_sort(left, mid, array);</span><br><span class="line">    merge_sort(mid+<span class="number">1</span>, right, array);</span><br><span class="line">    merge(left, mid, right, array);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">merge</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>+<span class="built_in">Default</span>&gt;(left: <span class="built_in">usize</span>, mid: <span class="built_in">usize</span>, right: <span class="built_in">usize</span>, array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">let</span> index: <span class="built_in">usize</span> = right - left + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> tmp = <span class="built_in">vec!</span>[T::default(); index];</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> p1 = left; <span class="keyword">let</span> <span class="keyword">mut</span> p2 = mid+<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> indexflag = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span> p1 &lt;= mid &amp;&amp; p2 &lt;= right&#123;</span><br><span class="line">        <span class="keyword">if</span> array[p1] &lt;= array[p2] &#123;</span><br><span class="line">            tmp[indexflag] = array[p1];</span><br><span class="line">            p1+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            tmp[indexflag] = array[p2];</span><br><span class="line">            p2+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        indexflag+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> p1 &lt;= mid &#123;</span><br><span class="line">        tmp[indexflag] = array[p1];</span><br><span class="line">        p1+=<span class="number">1</span>;</span><br><span class="line">        indexflag+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> p2 &lt;= right &#123;</span><br><span class="line">        tmp[indexflag] = array[p2];</span><br><span class="line">        p2+=<span class="number">1</span>;</span><br><span class="line">        indexflag+=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..index&#123;</span><br><span class="line">        array[left+i] = tmp[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h5><p>​        （1）从所有元素挑选一个基准值，目标将所有元素划分为  <u>比基准值小的</u>   <u>基准值</u>   <u>比基准值大的</u>；</p>
+<p>​        （2）继续分别对<u>比基准值小的</u> 和  <u>比基准值大的</u> 也继续（1）操作。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">quick_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>&gt;(left: <span class="built_in">usize</span>,right: <span class="built_in">usize</span>, array: &amp;<span class="keyword">mut</span> [T]) &#123;</span><br><span class="line">    <span class="keyword">if</span> left &gt;= right &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> i = left; <span class="keyword">let</span> <span class="keyword">mut</span> j = right;</span><br><span class="line">    <span class="keyword">let</span> data = array[left];</span><br><span class="line">    <span class="keyword">while</span> i &lt; j &#123;</span><br><span class="line">        <span class="keyword">while</span> i &lt; j &amp;&amp; data &lt;= array[j] &#123;</span><br><span class="line">            j-=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span> i &lt; j &amp;&amp; data &gt;= array[i] &#123;</span><br><span class="line">            i+=<span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> i &lt; j &#123;</span><br><span class="line">            array.swap(i,j);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    array.swap(left,i);</span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">0</span>&#123;</span><br><span class="line">        quick_sort(left, i-<span class="number">1</span>, array);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(i+<span class="number">1</span>, right, array);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h5><p>​        插入排序改进版，即把原数组分为一个gap这么多堆，gap会一直变小。</p>
+<p>​        比如：1 2 3 4 5 6 7 8 9，分为4堆，1 5 9、2 6、3 7、4 8，对4个堆先插入排序；<br>​        gap变小，如两堆，1 3 5 7 9、2 4 6 8，再继续插入排序；<br>​        gap变小，一堆，插入排序。</p>
+<p>​        这样和插入排序不同的是，希尔排序会先和远处的元素先比较，就不是像插入相邻相邻比较了。</p>
+<figure class="highlight rust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">pub</span> <span class="function"><span class="keyword">fn</span> <span class="title">shell_sort</span></span>&lt;T: <span class="built_in">PartialOrd</span>+<span class="built_in">Copy</span>&gt;(array: &amp;<span class="keyword">mut</span> [T])&#123;</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">mut</span> gap = array.len();</span><br><span class="line">    <span class="keyword">while</span> gap &gt; <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> gap..array.len()&#123;</span><br><span class="line">            <span class="keyword">let</span> <span class="keyword">mut</span> j = i;</span><br><span class="line">            <span class="keyword">let</span> tmp = array[j];</span><br><span class="line">            <span class="keyword">if</span> array[j] &lt; array[j-gap] &#123;</span><br><span class="line">                <span class="keyword">while</span> j &gt;= gap &amp;&amp; tmp &lt; array[j-gap] &#123;</span><br><span class="line">                    array[j] = array[j-gap];</span><br><span class="line">                    j-=gap;</span><br><span class="line">                &#125;</span><br><span class="line">                array[j] = tmp;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        gap/=<span class="number">2</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h5>
       
 
       
@@ -282,7 +318,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=https://fallstreet.github.io/2020/11/16/some/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=https://fallstreet.github.io/2020/11/15/Rust%E6%95%B0%E7%BB%84%E7%AF%87/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,11 +332,15 @@
   
 <nav id="article-nav">
   
-  
-    <a href="/2020/11/16/%E6%A0%91%E7%9A%84%E9%81%8D%E5%8E%86/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">树的遍历</div>
-      <i class="icon-circle-right"></i>
+    <a href="/2020/11/16/Rust%E9%93%BE%E8%A1%A8%E7%AF%87/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Rust 链表篇
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -325,7 +365,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    目录，不存在的…
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95"><span class="toc-number">1.1.</span> <span class="toc-text">排序算法</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%92%E6%B3%A1%E6%B3%95"><span class="toc-number">1.1.1.</span> <span class="toc-text">冒泡法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%80%89%E6%8B%A9%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.2.</span> <span class="toc-text">选择排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.3.</span> <span class="toc-text">插入排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.4.</span> <span class="toc-text">归并排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.5.</span> <span class="toc-text">快速排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.6.</span> <span class="toc-text">希尔排序</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-number">1.1.7.</span> <span class="toc-text">堆排序</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>

@@ -2,23 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://fallstreet.github.io/2020/11/15/Rust%E6%95%B0%E7%BB%84%E7%AF%87/</loc>
+    <loc>https://fallstreet.github.io/2020/12/04/%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B/</loc>
     
-    <lastmod>2020-11-22</lastmod>
+    <lastmod>2020-12-04</lastmod>
     
   </url>
   
   <url>
     <loc>https://fallstreet.github.io/2020/11/16/Rust%E9%93%BE%E8%A1%A8%E7%AF%87/</loc>
     
-    <lastmod>2020-11-22</lastmod>
+    <lastmod>2020-12-04</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://fallstreet.github.io/2020/11/15/Rust%E6%95%B0%E7%BB%84%E7%AF%87/</loc>
+    
+    <lastmod>2020-12-04</lastmod>
     
   </url>
   
 
   <url>
     <loc>https://fallstreet.github.io/</loc>
-    <lastmod>2020-11-22</lastmod>
+    <lastmod>2020-12-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>

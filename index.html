@@ -154,6 +154,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-泛型关联类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/12/04/%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B/">泛型关联类型</a>
+    </h1>
+  
+
+        
+        <a href="/2020/12/04/%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B/" class="archive-article-date">
+  	<time datetime="2020-12-04T09:08:11.393Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-04</time>
+</a>
+
+        <!-- 需要添加的位置 -->
+        <!-- 开始添加字数统计-->
+        
+          <div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">7.4k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">35分</span>
+      </span>
+    </span>
+</div>
+          
+          <!-- 添加完成 -->
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <div align='center' ><font size='70'>泛型关联类型</font></div>
+
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>​        最近看到，Rust nightly可以启用<code>#![feature(generic_associated_types)]</code>来使用GATs即泛型关联类型，该feature在2016年便已被提出但一直进展缓慢，直到最近才开启了nightly测试。但什么是GATs，GATs带来了什么，能够提升什么？最明显的，就是<code>std::io::Lines</code>，其实现了迭代器中的<code>next</code>方法里，每次都需要<code>String::new()</code>，这是一笔比较大的开销，但未来如果我们能依靠GATS定义一个<code>StreamingIteraor</code>迭代器来实现io复用，绝对是一个巨大的提升。</p>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/12/04/%E6%B3%9B%E5%9E%8B%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Rust链表篇" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -178,7 +267,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.6k字</span>
+        <span class="post-count">2.7k字</span>
       </span>
     </span>
 
@@ -187,7 +276,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">10分</span>
+        <span class="post-count">11分</span>
       </span>
     </span>
 </div>
@@ -267,7 +356,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.5k字</span>
+        <span class="post-count">1.6k字</span>
       </span>
     </span>
 
@@ -276,7 +365,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">6分</span>
+        <span class="post-count">7分</span>
       </span>
     </span>
 </div>
